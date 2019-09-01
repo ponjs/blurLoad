@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>BlurLoad Demo</title>
+    <style>
+        *{
+            margin: 0;
+            padding: 0;
+        }
+        h1{
+            text-align: center;
+            font-size: 28px;
+            margin: 100px 0;
+            color: #464C5B;
+        }
+        .blur-load{
+            margin: auto;
+            width: 853px;
+            height: 480px;
+        }
+    </style>
+</head>
+<body>
+    <h1>BlurLoad Demo</h1>
+    <figure class="blur-load" data-width="2560" data-height="1440" data-thumb="./thumb.png" data-src="./origin.png"></figure>
+    <script type="text/javascript" src="../blurLoad.min.js"></script>
+    <script type="text/javascript">
+        blurLoad();
+    </script>
+</body>
+</html>
