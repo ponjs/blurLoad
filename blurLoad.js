@@ -14,7 +14,7 @@
 
     // 在head里声明style样式
     let styleElem = document.createElement('style'),
-        styleText = '.blur-load{position:relative;overflow:hidden}.blur-load div{transition:background-color .5s ease-in}.blur-load img{position:absolute;top:0;left:0;width:100%;height:100%;opacity:0}.blur-load .thumb-loaded{opacity:1;filter:blur(10px);transform:scale(1)}.blur-load .origin-loaded{opacity:1}.blur-load .thumb-hidden{opacity:0}';
+        styleText = '.blur-load{position:relative;overflow:hidden}.blur-load div{transition:background-color .5s ease-in}.blur-load img{position:absolute;top:0;left:0;width:100%;height:100%;opacity:0;transition:opacity .5s ease-in}.blur-load .thumb-loaded{opacity:1;filter:blur(10px);transform:scale(1)}.blur-load .origin-loaded{opacity:1}.blur-load .thumb-hidden{opacity:0}';
          
     styleElem.type = 'text/css';
 
