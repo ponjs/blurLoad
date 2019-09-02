@@ -108,6 +108,7 @@
 
             // 判断原图是否已加载
             if (origin.complete || origin.naturalWidth || origin.width) {
+                elemFill.style.backgroundColor = getAverageRGB(origin);
                 origin.onload = () => {
                     origin.style.transition = 'none';
                     setStyle(origin, 'origin-loaded');
