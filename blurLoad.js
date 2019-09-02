@@ -14,7 +14,7 @@
 
     // 在head里声明style样式
     let styleElem = document.createElement('style'),
-        styleText = '.blur-load{position:relative;overflow:hidden}.blur-load div{transition:background-color .5s ease-in}.blur-load img{position:absolute;top:0;left:0;width:100%;height:100%;opacity:0;transition:opacity .5s ease-in}.blur-load .thumb-loaded{opacity:1;filter:blur(10px);transform:scale(1)}.blur-load .origin-loaded{opacity:1}.blur-load .thumb-hidden{opacity:0}';
+        styleText = '.blur-load{position:relative;overflow:hidden}.blur-load div{transition:background-color .5s ease-in}.blur-load img{position:absolute;top:0;left:0;width:100%;height:100%;opacity:0}.blur-load .thumb-loaded{opacity:1;filter:blur(10px);transform:scale(1)}.blur-load .origin-loaded{opacity:1}.blur-load .thumb-hidden{opacity:0}';
          
     styleElem.type = 'text/css';
 
@@ -47,7 +47,7 @@
             data, width, height,
             i = -4,
             length,
-            rgb = {r:0,g:0,b:0},
+            rgb = {r: 0, g: 0, b: 0},
             colorRGB,
             count = 0;
             
@@ -103,21 +103,31 @@
             elemFill.style.paddingBottom = `${(elemHeight / elemWidth) * 100}%`;
             elem.appendChild(elemFill);
             
-            let thumb = new Image();
-            thumb.src = thumbSrc;
-            thumb.onload = () => {
-                elemFill.style.backgroundColor = getAverageRGB(thumb);
-                setStyle(thumb, 'thumb-loaded');
-            };
-            elem.appendChild(thumb);
-
             let origin = new Image();
             origin.src = originSrc;
-            origin.onload = () => {
-                setStyle(origin, 'origin-loaded');
-                setStyle(thumb, 'thumb-hidden');
-            };
-            elem.appendChild(origin);
+
+            // 判断原图是否已加载
+            if (origin.complete || origin.naturalWidth || origin.width) {
+                origin.onload = () => {
+                    origin.style.transition = 'none';
+                    setStyle(origin, 'origin-loaded');
+                };
+                elem.appendChild(origin);
+            } else {
+                let thumb = new Image();
+                thumb.src = thumbSrc;
+                thumb.onload = () => {
+                    elemFill.style.backgroundColor = getAverageRGB(thumb);
+                    setStyle(thumb, 'thumb-loaded');
+                };
+                elem.appendChild(thumb);
+
+                origin.onload = () => {
+                    setStyle(origin, 'origin-loaded');
+                    setStyle(thumb, 'thumb-hidden');
+                };
+                elem.appendChild(origin);
+            }            
         });
     };
 
